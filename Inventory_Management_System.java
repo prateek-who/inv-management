@@ -127,7 +127,9 @@ class inventory {
 
                 if (hm_name.containsKey(id_edit)) {
                     hm_name.remove(id_edit);
+                    Inventory_price=Inventory_price-hm_price.get(id_edit);
                     hm_price.remove(id_edit);
+                    Inventory_size=Inventory_size- hm_weight.get(id_edit);
                     hm_weight.remove(id_edit);
                     hm_quantity.remove(id_edit);
                     System.out.println("Product Deleted!");
@@ -170,7 +172,6 @@ class disp extends playing {
 
     public void display() {
         percentage = (Inventory_size / Inventory_max) * 100;
-        System.out.println(percentage);
         System.out.println("Current Level of Storage:");
         for (row = 0; row < 3; row++) {
             for (column = 0; column < 22; column++) {
