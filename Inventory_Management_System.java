@@ -1,13 +1,13 @@
 import java.util.*;
 
-public class actii2 {
+public class Java_Activity_2 {
     public static void main(String[] args){
-        fin fin_obj = new fin();
-        fin_obj.dashboard();
+        All_display fin_obj = new All_display();
+        fin_obj.dashboard_interaction();
     }
 }
 
-class inventory {
+class Inventory {
     Scanner sc = new Scanner(System.in);
     HashMap<Integer, String> hm_name = new HashMap<>();
     HashMap<Integer, Float> hm_price = new HashMap<>();
@@ -146,7 +146,7 @@ class inventory {
     }
 }
 
-class playing extends inventory {
+class Dashboard_display extends Inventory {
     public void display_product() {
         System.out.println("\t\t\t\t\t\t\t\tYour current Inventory:");
         System.out.println("ID " + "\t\t Product Price" + "\t\t   Product Weight" + "\t\t  Product Quantity" + "\t\t Product Name" );
@@ -164,7 +164,7 @@ class playing extends inventory {
     }
 }
 
-class meter_display extends playing {
+class Meter_display extends Dashboard_display {
     String[][] ar = new String[3][22];
     String sp = " ",fill="+";
     int row, column,i;
@@ -208,10 +208,10 @@ class meter_display extends playing {
     // This class is for printing the Storage-Meter
 }
 
-class fin extends meter_display {
+class All_display extends Meter_display {
     int cho;
     // This class acts as the dashboard for the program.
-    public void dashboard() {
+    public void dashboard_interaction() {
         System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t\tHello! Welcome to Inventory Manager!");
         System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t\tInventory Capacity: "+Inventory_max+" sq units.");
         try {
