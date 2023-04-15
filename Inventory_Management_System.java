@@ -3,7 +3,7 @@ import java.util.*;
 public class actii2 {
     public static void main(String[] args){
         fin fin_obj = new fin();
-        fin_obj.run();
+        fin_obj.dashboard();
     }
 }
 
@@ -149,12 +149,12 @@ class inventory {
 class playing extends inventory {
     public void display_product() {
         System.out.println("\t\t\t\t\t\t\t\tYour current Inventory:");
-        System.out.println("ID " + "\t\t Product Name" + "\t\t Product Price" + "\t\t   Product Weight" + "\t\t  Product Quantity");
+        System.out.println("ID " + "\t\t Product Price" + "\t\t   Product Weight" + "\t\t  Product Quantity" + "\t\t Product Name" );
 
         Iterator<Integer> iterator = hm_name.keySet().iterator(); //Iterator runs thourgh all elements in the keySet()-very nice :)
         while (iterator.hasNext()) {
             Integer key = iterator.next();
-            System.out.println(key + "\t\t\t " + hm_name.get(key) + "\t\t\t\t " + hm_price.get(key) + "\t\t\t\t  " + hm_weight.get(key) + "\t\t\t\t\t   " + hm_quantity.get(key));
+            System.out.println(key + "\t\t\t " + hm_price.get(key) + "\t\t\t\t  " + hm_weight.get(key) + "\t\t\t\t\t   " + hm_quantity.get(key) +  "\t\t\t\t\t " + hm_name.get(key) );
         }
 
         System.out.println("----------------------------------------------------------------------");
@@ -164,25 +164,34 @@ class playing extends inventory {
     }
 }
 
-class disp extends playing {
+class meter_display extends playing {
     String[][] ar = new String[3][22];
     String sp = " ",fill="+";
     int row, column,i;
     float percentage=0;
 
-    public void display() {
+    public void fill_meter_display() {
         percentage = (Inventory_size / Inventory_max) * 100;
         System.out.println("Current Level of Storage:");
         for (row = 0; row < 3; row++) {
             for (column = 0; column < 22; column++) {
                 for(i=0;i<=20;i++) {
-                    if(percentage>=i*5) {
-                        if (row == 1 && column <= i) {
+                    if(percentage<=0){
+                        ar[row][column] = sp;
+                    }
+                    else if(percentage<= 5){
+                        if (row == 1 && column == 1)
                             ar[row][column] = fill;
-                        }
                         else
                             ar[row][column] = sp;
                     }
+                    else if(percentage>=i*5) {
+                        if (row == 1 && column <= i)
+                            ar[row][column] = fill;
+                        else
+                            ar[row][column] = sp;
+                    }
+                    // Loops and check what is the 'percentage' at. Keeps printing 'fill' until percentage >= i*5
                 }
                 if (row == 0 || row == 2) {
                     ar[row][column] = "~";
@@ -195,15 +204,16 @@ class disp extends playing {
             }
             System.out.println(" ");
         }
-    }// This class is for printing the Storage-Meter
+    }
+    // This class is for printing the Storage-Meter
 }
 
-class fin extends disp {
+class fin extends meter_display {
     int cho;
-
-    public void run() {
+    // This class acts as the dashboard for the program.
+    public void dashboard() {
         System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t\tHello! Welcome to Inventory Manager!");
-        System.out.println("Inventory Capacity: 2000 sq units.");
+        System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t\tInventory Capacity: "+Inventory_max+" sq units.");
         try {
             System.out.println("1.Input New Product\n2.Edit Existing Product\n3.Delete Existing Product\n4.Display Inventory");
             cho = sc.nextInt();
@@ -211,22 +221,22 @@ class fin extends disp {
                 switch (cho) {
                     case 1 -> {
                         input_product();
-                        display();
+                        fill_meter_display();
                     }
 
                     case 2 -> {
                         edit_product();
-                        display();
+                        fill_meter_display();
                     }
 
                     case 3 -> {
                         delete_product();
-                        display();
+                        fill_meter_display();
                     }
 
                     case 4 -> {
                         display_product();
-                        display();
+                        fill_meter_display();
                     }
                     default -> System.out.println("Wrong Input!");
                 }
