@@ -64,7 +64,8 @@ class Inventory {
                 do {
                     switch (choice) {
                         case 1 -> {
-                            System.out.println(hm_price.get(id_edit));
+                            float individual_price = hm_price.get(id_edit) / hm_quantity.get(id_edit);
+                            System.out.println("Previous Individual Price: "+individual_price);
                             System.out.println("Enter new Price(Individual Price):");
                             pro_Price = sc.nextFloat();
                             Inventory_price = Inventory_price - hm_price.get(id_edit);
@@ -87,10 +88,13 @@ class Inventory {
                         }
 
                         case 3 -> {
-                            System.out.println("Enter new Quantity:");
-                            pro_Quantity = sc.nextInt();
                             float individual_weight = hm_weight.get(id_edit) / hm_quantity.get(id_edit);
                             float individual_price = hm_price.get(id_edit) / hm_quantity.get(id_edit);
+                            System.out.println("Previous Individual Price: "+individual_price);
+                            System.out.println("Previous Individual Weight: "+individual_weight);
+                            System.out.println("Previous Quantity: "+hm_quantity.get(id_edit));
+                            System.out.println("Enter new Quantity:");
+                            pro_Quantity = sc.nextInt();
                             Inventory_size = Inventory_size - hm_weight.get(id_edit);
                             if ((individual_weight * pro_Quantity) + Inventory_size <= Inventory_max) {
                                 hm_quantity.replace(id_edit, pro_Quantity);
@@ -154,7 +158,7 @@ class Dashboard_display extends Inventory {
         Iterator<Integer> iterator = hm_name.keySet().iterator(); //Iterator runs thourgh all elements in the keySet()-very nice :)
         while (iterator.hasNext()) {
             Integer key = iterator.next();
-            System.out.println(key + "\t\t\t " + hm_price.get(key) + "\t\t\t\t  " + hm_weight.get(key) + "\t\t\t\t\t   " + hm_quantity.get(key) +  "\t\t\t\t\t " + hm_name.get(key) );
+            System.out.println(key + "    \t    " + hm_price.get(key) + "      \t        " + hm_weight.get(key) + "      \t\t         " + hm_quantity.get(key) +  "    \t\t     " + hm_name.get(key) + "    \t    ");
         }
 
         System.out.println("----------------------------------------------------------------------");
